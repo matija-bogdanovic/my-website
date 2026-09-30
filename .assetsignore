@@ -10,4 +10,3 @@ scripts
 node_modules
 *.zip
 .wrangler
-src

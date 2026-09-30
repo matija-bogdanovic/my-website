@@ -3,12 +3,8 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "mywebsite",
   "compatibility_date": "2026-09-01",
-  // Only redirects matathedev.com → www.matathedev.com; everything else is static files.
-  "main": "src/worker.js",
   "assets": {
     "directory": ".",
-    "binding": "ASSETS",
-    "run_worker_first": true,
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "none"
   }
