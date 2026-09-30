@@ -1,0 +1,12 @@
+# Files that stay in the repo but are not published to the website
+.git
+.gitignore
+.assetsignore
+.claude
+wrangler.jsonc
+README.md
+content
+scripts
+node_modules
+*.zip
+.wrangler
