@@ -1392,3 +1392,7 @@ picture { display: contents; }
 .sketch.is-drawn .sk-trail-reveal,
 .sketch.is-drawn .sk-pointer-reveal,
 .sketch.is-drawn .sk-pointer-head { opacity: 1; }
+
+/* Journey dots: centred exactly on the line and layered above it */
+.timeline .card { z-index: 2; }
+.timeline .card::before { left: -28px; }
