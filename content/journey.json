@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "upwork",
+    "title": "Web Developer",
+    "org": "Upwork",
+    "location": "Remote",
+    "tags": ["Freelance", "Remote"],
+    "dates": "Jan 2022 – Mar 2023",
+    "summary": "My first year of freelancing. I found my first clients on Upwork and built websites for them in Webflow, Framer and custom code, all while still in high school.",
+    "did": [
+      "Worked with my first clients, developing websites in Webflow, Framer and custom code",
+      "Delivered pixel-perfect builds and awesome web experiences"
+    ],
+    "learned": [
+      {
+        "title": "Working with real clients",
+        "text": "Turning what a client asks for into a finished website, and keeping them in the loop from first message to launch."
+      },
+      {
+        "title": "Pixel-perfect builds",
+        "text": "Matching a design exactly, down to spacing and type, so the live site looks the way it was designed."
+      },
+      {
+        "title": "Choosing the right tool",
+        "text": "When a project fits Webflow, when it fits Framer, and when it needs custom code."
+      }
+    ],
+    "tools": ["Webflow", "Framer", "HTML", "CSS", "JavaScript"]
+  },
+  {
+    "slug": "conquer-ai",
+    "title": "Freelance Full-circle & Web Developer",
+    "org": "Conquer AI",
+    "location": "United Kingdom",
+    "tags": ["Freelance", "Remote"],
+    "dates": "From Mar 2023",
+    "summary": "Freelance work with a UK company, building and maintaining websites for Conquer AI and for their enterprise clients.",
+    "did": [
+      "Built and maintained websites for Conquer AI and their clients as a freelancer",
+      "Delivered Webflow/Framer projects for large enterprise clients",
+      "Grew my custom code skills across many client websites"
+    ],
+    "learned": [
+      {
+        "title": "Enterprise-level projects",
+        "text": "What larger clients expect from a website, and how to deliver to that standard."
+      },
+      {
+        "title": "Many sites at once",
+        "text": "Building and maintaining several client websites side by side without losing quality."
+      },
+      {
+        "title": "Going beyond no-code",
+        "text": "Using custom code alongside Webflow and Framer when a project needs more than the platform offers."
+      }
+    ],
+    "tools": ["Webflow", "Framer", "HTML", "CSS", "JavaScript"]
+  },
+  {
+    "slug": "flow-ninja",
+    "title": "Webflow Developer",
+    "org": "Flow Ninja",
+    "location": "On-site",
+    "tags": ["On-site"],
+    "dates": "Mar 2026 – Apr 2026",
+    "summary": "An on-site role at a Webflow agency, building and customizing client websites as part of the team.",
+    "did": [
+      "Built and customized websites using Webflow",
+      "Applied HTML, CSS, and JavaScript for advanced interactions",
+      "Improved CMS structure and content management workflows",
+      "Collaborated in a fast-paced agency environment"
+    ],
+    "learned": [
+      {
+        "title": "Performance in Webflow",
+        "text": "Techniques for making Webflow sites load and run faster."
+      },
+      {
+        "title": "Advanced interactions",
+        "text": "Combining Webflow with custom HTML, CSS and JavaScript for interactions the platform can't do on its own."
+      },
+      {
+        "title": "Better CMS structure",
+        "text": "Organizing CMS collections so content is easier for clients to manage."
+      },
+      {
+        "title": "Agency pace",
+        "text": "Working with a team on tight timelines and shipping client work quickly."
+      }
+    ],
+    "tools": ["Webflow", "HTML", "CSS", "JavaScript"]
+  }
+]

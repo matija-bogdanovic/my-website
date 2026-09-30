@@ -16,6 +16,14 @@ Then open http://localhost:3000.
 - **Booking calendar** uses the Cal.com username in `CAL_LINK` at the top of `index.js`.
 - After changing `index.css` or `index.js`, bump the `?v=` number where they're linked in `index.html` so browsers load the new version.
 
+## Journey pages
+
+Each job has its own page at `/journey/<slug>/`, generated from `content/journey.json`.
+
+1. Edit `content/journey.json` (title, company, dates, what I did, what I learned, tools).
+2. Run `node scripts/build-journey.mjs` to regenerate the `journey/` folder.
+3. If you add a new job, also add its card and a "What I learned" link in the journey section of `index.html`.
+
 ## Deploy
 
 Hosted on Cloudflare Pages. With the repo connected, every push to `main` deploys automatically. There is no build command and the output directory is `/`.
