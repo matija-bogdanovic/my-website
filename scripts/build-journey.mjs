@@ -10,6 +10,9 @@ const roles = JSON.parse(readFileSync(join(root, "content/journey.json"), "utf8"
 // Bump when index.css / page.js change so browsers fetch the new version
 const ASSET_VERSION = "4";
 
+// Main address of the live site (used for canonical links, previews and the sitemap)
+const SITE = "https://www.matathedev.com";
+
 const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
 const TOOL_ICONS = {
   Webflow: "/assets/icons/webflow.svg",
@@ -48,6 +51,18 @@ function roleNav(role, label, dir) {
           </a>`;
 }
 
+function breadcrumbs(role) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+      { "@type": "ListItem", position: 2, name: "My journey", item: `${SITE}/#experience` },
+      { "@type": "ListItem", position: 3, name: `${role.title} at ${role.org}`, item: `${SITE}/journey/${role.slug}/` },
+    ],
+  };
+}
+
 function page(role, i) {
   const prev = roles[i - 1];
   const next = roles[i + 1];
@@ -65,12 +80,18 @@ function page(role, i) {
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="theme-color" content="#4f5bd5">
     <meta name="color-scheme" content="light dark">
+    <link rel="canonical" href="${SITE}/journey/${role.slug}/">
     <meta property="og:type" content="article">
+    <meta property="og:url" content="${SITE}/journey/${role.slug}/">
     <meta property="og:site_name" content="Matija Bogdanovic">
     <meta property="og:title" content="${esc(title)}">
     <meta property="og:description" content="${esc(role.summary)}">
-    <meta property="og:image" content="/og-image.jpg">
+    <meta property="og:image" content="${SITE}/og-image.jpg">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="${SITE}/og-image.jpg">
+    <script type="application/ld+json">
+${JSON.stringify(breadcrumbs(role), null, 2)}
+    </script>
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
@@ -181,3 +202,16 @@ roles.forEach((role, i) => {
   writeFileSync(join(dir, "index.html"), page(role, i));
   console.log(`✓ journey/${role.slug}/`);
 });
+
+// Sitemap for search engines: homepage + every journey page
+const today = new Date().toISOString().slice(0, 10);
+const urls = [`${SITE}/`, ...roles.map((r) => `${SITE}/journey/${r.slug}/`)];
+writeFileSync(
+  join(root, "sitemap.xml"),
+  `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((u) => `  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`).join("\n")}
+</urlset>
+`
+);
+console.log("✓ sitemap.xml");

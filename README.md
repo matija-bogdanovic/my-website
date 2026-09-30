@@ -21,7 +21,7 @@ Then open http://localhost:3000.
 Each job has its own page at `/journey/<slug>/`, generated from `content/journey.json`.
 
 1. Edit `content/journey.json` (title, company, dates, what I did, what I learned, tools).
-2. Run `node scripts/build-journey.mjs` to regenerate the `journey/` folder.
+2. Run `node scripts/build-journey.mjs` to regenerate the `journey/` folder and `sitemap.xml`.
 3. If you add a new job, also add its card and a "What I learned" link in the journey section of `index.html`.
 
 ## Deploy
