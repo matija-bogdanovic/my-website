@@ -11,7 +11,7 @@ const roles = JSON.parse(readFileSync(join(root, "content/journey.json"), "utf8"
 const ASSET_VERSION = "4";
 
 // Main address of the live site (used for canonical links, previews and the sitemap)
-const SITE = "https://www.matathedev.com";
+const SITE = "https://matathedev.com";
 
 const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
 const TOOL_ICONS = {
