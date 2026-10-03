@@ -17,7 +17,7 @@ const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
 const TOOL_ICONS = {
   Webflow: "/assets/icons/webflow.svg",
   Framer: `${DEVICON}/framermotion/framermotion-original.svg`,
-  Shopify: "https://cdn.simpleicons.org/shopify",
+  Shopify: "/assets/icons/shopify.svg",
   HTML: `${DEVICON}/html5/html5-original.svg`,
   CSS: `${DEVICON}/css3/css3-original.svg`,
   JavaScript: `${DEVICON}/javascript/javascript-original.svg`,
