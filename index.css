@@ -1679,3 +1679,6 @@ html { background: var(--bg); }
 body { background: transparent; }
 
 .bg-dots-wave { --dot-c: color-mix(in srgb, var(--accent) 32%, transparent); }
+
+/* Hero photo: no offset backing card behind it */
+.hero-photo::before { display: none; }
