@@ -1607,3 +1607,5 @@ picture { display: contents; }
     linear-gradient(-45deg, transparent 40%, #ffffff 40% 60%, transparent 60%),
     #012169;
 }
+
+.lang-flag { box-shadow: inset 0 0 0 1px rgba(0,0,0,.08), 0 0 0 1.5px var(--line); }
