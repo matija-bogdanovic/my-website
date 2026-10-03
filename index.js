@@ -248,6 +248,7 @@ function loadCal() {
     config: { layout: "month_view" },
   });
   Cal.ns.book("ui", {
+    theme: "light", // the booking section is always white
     hideEventTypeDetails: false,
     layout: "month_view",
     cssVarsPerTheme: {
@@ -486,25 +487,4 @@ document.fonts?.ready.then(drawPointer);
     }, 3500);
   }
   update();
-})();
-
-// Background dots: the cursor spotlight follows the mouse (pure CSS does the rest)
-(function dotSpotlight() {
-  const layer = document.querySelector(".bg-dots-spot");
-  if (!layer || !finePointer || reduceMotion) return;
-  let x = -999, y = -999, queued = false;
-  window.addEventListener("pointermove", (e) => {
-    x = e.clientX; y = e.clientY;
-    if (queued) return;
-    queued = true;
-    requestAnimationFrame(() => {
-      layer.style.setProperty("--mx", `${x}px`);
-      layer.style.setProperty("--my", `${y}px`);
-      queued = false;
-    });
-  }, { passive: true });
-  document.addEventListener("pointerleave", () => {
-    layer.style.setProperty("--mx", "-999px");
-    layer.style.setProperty("--my", "-999px");
-  });
 })();
