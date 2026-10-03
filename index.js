@@ -487,3 +487,91 @@ document.fonts?.ready.then(drawPointer);
   }
   update();
 })();
+
+// Hero dot grid: a slow wave of light across the dots, plus a spotlight that
+// follows the cursor. Pauses when off screen or in a background tab.
+(function heroDots() {
+  const canvas = document.querySelector(".hero-dots");
+  if (!canvas) return;
+  const hero = canvas.parentElement;
+  const ctx = canvas.getContext("2d");
+  const GAP = 26;          // distance between dots (px)
+  const BASE_R = 1.1;      // resting dot radius
+  let w = 0, h = 0, dpr = 1, dots = [];
+  let ink = [255, 255, 255], accent = [139, 148, 255];
+  let mouse = { x: -9999, y: -9999 }, visible = true, raf = 0;
+
+  const toRGB = (value) => {
+    const probe = document.createElement("span");
+    probe.style.color = value;
+    document.body.appendChild(probe);
+    const m = getComputedStyle(probe).color.match(/\d+(\.\d+)?/g).map(Number);
+    probe.remove();
+    return m.slice(0, 3);
+  };
+  const readColors = () => {
+    const css = getComputedStyle(document.documentElement);
+    ink = toRGB(css.getPropertyValue("--text").trim() || "#fff");
+    accent = toRGB(css.getPropertyValue("--accent").trim() || "#8b94ff");
+  };
+
+  const resize = () => {
+    const r = hero.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = r.width; h = r.height;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    dots = [];
+    const offX = (w % GAP) / 2, offY = (h % GAP) / 2;
+    for (let y = offY; y <= h; y += GAP) for (let x = offX; x <= w; x += GAP) dots.push(x, y);
+  };
+
+  const draw = (t) => {
+    ctx.clearRect(0, 0, w, h);
+    const time = t * 0.001;
+    for (let i = 0; i < dots.length; i += 2) {
+      const x = dots[i], y = dots[i + 1];
+      // diagonal wave travelling across the grid
+      const wave = Math.pow(Math.max(0, Math.sin((x + y) * 0.006 - time * 0.9)), 6);
+      // cursor spotlight
+      const dx = x - mouse.x, dy = y - mouse.y;
+      const near = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / 150);
+      const glow = Math.max(wave * 0.55, near);
+      const a = 0.14 + glow * 0.6;
+      const r = BASE_R + near * 1.4 + wave * 0.5;
+      const c = near > 0.05 ? accent : ink;
+      ctx.fillStyle = `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  };
+
+  const loop = (t) => {
+    draw(t);
+    raf = requestAnimationFrame(loop);
+  };
+  const start = () => { if (!raf && !reduceMotion && visible && !document.hidden) raf = requestAnimationFrame(loop); };
+  const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+
+  readColors();
+  resize();
+  draw(0);
+
+  window.addEventListener("resize", () => { resize(); draw(performance.now()); });
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { readColors(); draw(performance.now()); });
+  if (finePointer) {
+    hero.addEventListener("pointermove", (e) => {
+      const r = hero.getBoundingClientRect();
+      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+    });
+    hero.addEventListener("pointerleave", () => { mouse.x = mouse.y = -9999; });
+  }
+  new IntersectionObserver((entries) => {
+    visible = entries[0].isIntersecting;
+    visible ? start() : stop();
+  }).observe(hero);
+  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+  start();
+})();
