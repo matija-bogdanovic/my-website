@@ -1522,3 +1522,88 @@ picture { display: contents; }
 }
 
 .back-link { display: flex; width: fit-content; }
+
+/* =====================================================================
+   Icons (Phosphor duotone), coloured with the theme via mask
+   ===================================================================== */
+.ph-icon {
+  display: inline-block; flex: none;
+  width: 1.25em; height: 1.25em;
+  background: var(--accent);
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+.facts .ph-icon { width: 20px; height: 20px; }
+.cal-fallback-icon .ph-icon { width: 32px; height: 32px; }
+
+/* Language flags: circles filled with each flag's colours */
+.lang-flag {
+  width: 40px; height: 40px; border-radius: 50%; font-size: 0;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.08), 0 0 0 4px var(--bg-alt);
+  overflow: hidden;
+}
+.flag-rs { background: linear-gradient(#c6363c 0 33.4%, #0c4076 33.4% 66.7%, #ffffff 66.7% 100%); }
+.flag-de { background: linear-gradient(#000000 0 33.4%, #dd0000 33.4% 66.7%, #ffce00 66.7% 100%); }
+.flag-gb {
+  background:
+    linear-gradient(#c8102e, #c8102e) center / 100% 16% no-repeat,
+    linear-gradient(#c8102e, #c8102e) center / 16% 100% no-repeat,
+    linear-gradient(#ffffff, #ffffff) center / 100% 30% no-repeat,
+    linear-gradient(#ffffff, #ffffff) center / 30% 100% no-repeat,
+    #012169;
+}
+
+/* =====================================================================
+   Certifications: native scroll carousel
+   ===================================================================== */
+.certs-section .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; }
+.cert-arrows { display: flex; gap: 8px; flex: none; }
+.cert-arrows button {
+  width: 46px; height: 46px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--surface); color: var(--text);
+  font-size: 1.1rem; cursor: pointer;
+  transition: background .25s ease, color .25s ease, border-color .25s ease, transform .3s cubic-bezier(.22,.9,.32,1);
+}
+.cert-arrows button:hover { background: var(--accent); border-color: var(--accent); color: #fff; transform: translateY(-2px); }
+@media (prefers-color-scheme: dark) { .cert-arrows button:hover { color: #0e1020; } }
+
+@property --cfade-l { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --cfade-r { syntax: "<length>"; inherits: false; initial-value: 0px; }
+.cert-track {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 320px; gap: 20px;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding: 16px 4px 28px; margin: -16px -4px -20px;
+  scrollbar-width: none; cursor: grab;
+  --cfade-l: 0px; --cfade-r: 0px;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--cfade-l), #000 calc(100% - var(--cfade-r)), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 var(--cfade-l), #000 calc(100% - var(--cfade-r)), transparent 100%);
+  transition: --cfade-l .3s ease, --cfade-r .3s ease;
+}
+.cert-track::-webkit-scrollbar { display: none; }
+.cert-track.fade-left { --cfade-l: 64px; }
+.cert-track.fade-right { --cfade-r: 64px; }
+.cert-track.dragging { cursor: grabbing; scroll-snap-type: none; }
+.cert-track.dragging .cert { pointer-events: none; }
+.cert-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 12px; }
+.cert-slide { scroll-snap-align: start; }
+.cert-slide .cert { height: 100%; user-select: none; }
+.cert-slide .cert img { pointer-events: none; }
+@media (max-width: 600px) {
+  .cert-track { grid-auto-columns: 78%; }
+  .cert-track.fade-left { --cfade-l: 28px; }
+  .cert-track.fade-right { --cfade-r: 28px; }
+  .cert-arrows button { width: 40px; height: 40px; }
+}
+.flag-gb {
+  background:
+    linear-gradient(#c8102e, #c8102e) center / 100% 16% no-repeat,
+    linear-gradient(#c8102e, #c8102e) center / 16% 100% no-repeat,
+    linear-gradient(#ffffff, #ffffff) center / 100% 30% no-repeat,
+    linear-gradient(#ffffff, #ffffff) center / 30% 100% no-repeat,
+    linear-gradient(45deg, transparent 46%, #c8102e 46% 54%, transparent 54%),
+    linear-gradient(-45deg, transparent 46%, #c8102e 46% 54%, transparent 54%),
+    linear-gradient(45deg, transparent 40%, #ffffff 40% 60%, transparent 60%),
+    linear-gradient(-45deg, transparent 40%, #ffffff 40% 60%, transparent 60%),
+    #012169;
+}

@@ -208,36 +208,6 @@ if (window.Swiper) {
     });
   });
 
-  // Certifications: smooth continuous loop, pauses on hover, draggable
-  const certEl = document.querySelector(".cert-swiper");
-  if (certEl) {
-    // Triple the slides so the loop never runs out and nothing pops in or out
-    const wrapper = certEl.querySelector(".swiper-wrapper");
-    const original = wrapper.innerHTML;
-    wrapper.innerHTML = original + original + original;
-
-    const certSwiper = new Swiper(certEl, {
-      slidesPerView: "auto",
-      spaceBetween: 20,
-      loop: true,
-      speed: reduceMotion ? 0 : 6000,
-      grabCursor: true,
-      freeMode: { enabled: true, momentum: true },
-      autoplay: reduceMotion ? false : { delay: 0, disableOnInteraction: false },
-    });
-
-    // Pause smoothly on hover by stopping at the current position
-    if (!reduceMotion && finePointer) {
-      certEl.addEventListener("mouseenter", () => {
-        // Read the on-screen position (getTranslate() returns the transition's end point)
-        const current = new DOMMatrix(getComputedStyle(wrapper).transform).m41;
-        certSwiper.autoplay.stop();
-        certSwiper.setTransition(0);
-        certSwiper.setTranslate(current);
-      });
-      certEl.addEventListener("mouseleave", () => certSwiper.autoplay.start());
-    }
-  }
 }
 
 // Cal.com inline embed (only loads once CAL_LINK is set, and only when
@@ -443,3 +413,77 @@ function drawPointer() {
 drawPointer();
 window.addEventListener("resize", drawPointer);
 document.fonts?.ready.then(drawPointer);
+
+// Certifications: native scroll carousel (trackpad, swipe, drag, arrows, keys)
+// that gently advances on its own and loops, pausing while you interact.
+(function certCarousel() {
+  const track = document.querySelector(".cert-track");
+  if (!track) return;
+  const prev = document.querySelector(".cert-prev");
+  const next = document.querySelector(".cert-next");
+  const step = () => {
+    const slide = track.querySelector(".cert-slide");
+    return slide ? slide.getBoundingClientRect().width + 20 : 340;
+  };
+  const max = () => track.scrollWidth - track.clientWidth;
+  const go = (dir) => {
+    const atEnd = track.scrollLeft >= max() - 4;
+    const atStart = track.scrollLeft <= 4;
+    const left = dir > 0 && atEnd ? 0 : dir < 0 && atStart ? max() : track.scrollLeft + dir * step();
+    track.scrollTo({ left, behavior: reduceMotion ? "auto" : "smooth" });
+  };
+  const update = () => {
+    track.classList.toggle("fade-left", track.scrollLeft > 4);
+    track.classList.toggle("fade-right", track.scrollLeft < max() - 4);
+  };
+  prev.addEventListener("click", () => { go(-1); pause(); });
+  next.addEventListener("click", () => { go(1); pause(); });
+  track.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  track.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") { e.preventDefault(); go(1); pause(); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); pause(); }
+  });
+
+  // Mouse drag; a drag doesn't count as a click on the certificate link
+  let down = false, moved = false, startX = 0, startScroll = 0;
+  track.addEventListener("pointerdown", (e) => {
+    if (e.pointerType !== "mouse") return;
+    down = true; moved = false; startX = e.clientX; startScroll = track.scrollLeft;
+  });
+  window.addEventListener("pointermove", (e) => {
+    if (!down) return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 5) { moved = true; track.classList.add("dragging"); }
+    track.scrollLeft = startScroll - dx;
+  });
+  window.addEventListener("pointerup", () => {
+    if (!down) return;
+    down = false;
+    track.classList.remove("dragging");
+    if (moved) {
+      const s = step();
+      track.scrollTo({ left: Math.round(track.scrollLeft / s) * s, behavior: reduceMotion ? "auto" : "smooth" });
+      pause();
+    }
+  });
+  track.addEventListener("click", (e) => { if (moved) { e.preventDefault(); moved = false; } }, true);
+
+  // Gentle auto-advance; any interaction pauses it for a while
+  let timer = null, resumeAt = 0, hovering = false;
+  const pause = (ms = 6000) => { resumeAt = Date.now() + ms; };
+  track.addEventListener("pointerenter", () => (hovering = true));
+  track.addEventListener("pointerleave", () => (hovering = false));
+  track.addEventListener("focusin", () => pause(10000));
+  track.addEventListener("wheel", () => pause(), { passive: true });
+  track.addEventListener("touchstart", () => pause(), { passive: true });
+  if (!reduceMotion) {
+    timer = setInterval(() => {
+      if (hovering || Date.now() < resumeAt || document.hidden) return;
+      const r = track.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return; // only while on screen
+      go(1);
+    }, 3500);
+  }
+  update();
+})();

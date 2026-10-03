@@ -42,9 +42,9 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    <link rel="stylesheet" href="index.css?v=4">
+    <link rel="stylesheet" href="index.css?v=6">
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
-    <script src="index.js?v=2" defer></script>
+    <script src="index.js?v=3" defer></script>
 
     <!-- Structured data for search engines -->
     <script type="application/ld+json">
@@ -283,12 +283,12 @@
                 playing guitar.
               </p>
               <ul class="facts">
-                <li><span aria-hidden="true">📍</span>Based in Serbia</li>
-                <li><span aria-hidden="true">🚀</span>Building since age 16</li>
-                <li><span aria-hidden="true">🌍</span>Serbian, English, German</li>
-                <li><span aria-hidden="true">💼</span>Open to freelance &amp; remote</li>
-                <li><span aria-hidden="true">🏋️</span>Working out</li>
-                <li><span aria-hidden="true">🎸</span>Playing guitar</li>
+                <li><span class="ph-icon" style="--icon:url(https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/duotone/map-pin-duotone.svg)" aria-hidden="true"></span>Based in Serbia</li>
+                <li><span class="ph-icon" style="--icon:url(https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/duotone/rocket-launch-duotone.svg)" aria-hidden="true"></span>Building since age 16</li>
+                <li><span class="ph-icon" style="--icon:url(https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/duotone/translate-duotone.svg)" aria-hidden="true"></span>Serbian, English, German</li>
+                <li><span class="ph-icon" style="--icon:url(https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/duotone/briefcase-duotone.svg)" aria-hidden="true"></span>Open to freelance &amp; remote</li>
+                <li><span class="ph-icon" style="--icon:url(https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/duotone/barbell-duotone.svg)" aria-hidden="true"></span>Working out</li>
+                <li><span class="ph-icon" style="--icon:url(https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/duotone/guitar-duotone.svg)" aria-hidden="true"></span>Playing guitar</li>
               </ul>
               <figure class="signature">
                 <svg class="signature-svg" viewBox="0 0 1100 740" fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Matija Bogdanovic's signature">
@@ -479,7 +479,7 @@
           <div class="lang-grid">
               <article class="lang-card spotlight">
                 <div class="skill-top">
-                  <span class="lang-flag" aria-hidden="true">🇷🇸</span>
+                  <span class="lang-flag flag-rs" aria-hidden="true"></span>
                   <div class="skill-years lang-level"><strong>C2</strong><span>Native</span></div>
                 </div>
                 <h3>Serbian</h3>
@@ -489,7 +489,7 @@
               </article>
               <article class="lang-card spotlight">
                 <div class="skill-top">
-                  <span class="lang-flag" aria-hidden="true">🇬🇧</span>
+                  <span class="lang-flag flag-gb" aria-hidden="true"></span>
                   <div class="skill-years lang-level"><strong>C1</strong><span>Professional</span></div>
                 </div>
                 <h3>English</h3>
@@ -499,7 +499,7 @@
               </article>
               <article class="lang-card spotlight">
                 <div class="skill-top">
-                  <span class="lang-flag" aria-hidden="true">🇩🇪</span>
+                  <span class="lang-flag flag-de" aria-hidden="true"></span>
                   <div class="skill-years lang-level"><strong>A1</strong><span>Conversational</span></div>
                 </div>
                 <h3>German</h3>
@@ -517,48 +517,40 @@
           <div class="section-head">
             <div class="section-intro-wrap">
               <h2 class="section-title">Certifications</h2>
-              <p class="section-intro">Official credentials from Webflow, AWS and Framer. Hover to pause, drag to browse, click one to see it full size.</p>
+              <p class="section-intro">Official credentials from Webflow, AWS and Framer. Scroll, swipe or use the arrows, and click one to see it full size.</p>
+            </div>
+            <div class="cert-arrows">
+              <button class="cert-prev" aria-label="Previous certification">←</button>
+              <button class="cert-next" aria-label="Next certification">→</button>
             </div>
           </div>
         </div>
-        <div class="swiper cert-swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <a class="cert" href="assets/certs/webflow-layouts-1.jpg" target="_blank" rel="noopener">
+        <div class="container">
+          <div class="cert-track" tabindex="0" aria-label="Certifications, scroll or use arrow keys to browse">
+            <div class="cert-slide"><a class="cert" href="assets/certs/webflow-layouts-1.jpg" target="_blank" rel="noopener">
                 <img src="assets/certs/webflow-layouts-1.webp" width="300" height="232" loading="lazy" alt="Webflow Layouts level 1 certificate">
                 <span>Layouts Level 1</span><small>Webflow · Dec 2024</small>
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a class="cert" href="assets/certs/webflow-101.jpg" target="_blank" rel="noopener">
+              </a></div>
+            <div class="cert-slide"><a class="cert" href="assets/certs/webflow-101.jpg" target="_blank" rel="noopener">
                 <img src="assets/certs/webflow-101.webp" width="300" height="232" loading="lazy" alt="Webflow 101 certificate">
                 <span>Webflow 101</span><small>Webflow · Dec 2024</small>
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a class="cert" href="assets/certs/webflow-layouts-2.jpg" target="_blank" rel="noopener">
+              </a></div>
+            <div class="cert-slide"><a class="cert" href="assets/certs/webflow-layouts-2.jpg" target="_blank" rel="noopener">
                 <img src="assets/certs/webflow-layouts-2.webp" width="300" height="232" loading="lazy" alt="Webflow Layouts level 2 certificate">
                 <span>Layouts Level 2</span><small>Webflow · Dec 2024</small>
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a class="cert" href="assets/certs/webflow-cms.jpg" target="_blank" rel="noopener">
+              </a></div>
+            <div class="cert-slide"><a class="cert" href="assets/certs/webflow-cms.jpg" target="_blank" rel="noopener">
                 <img src="assets/certs/webflow-cms.webp" width="300" height="232" loading="lazy" alt="Webflow CMS certificate">
                 <span>CMS</span><small>Webflow · Dec 2024</small>
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a class="cert cert-badge" href="assets/certs/aws-cloud-practitioner.jpg" target="_blank" rel="noopener">
+              </a></div>
+            <div class="cert-slide"><a class="cert cert-badge" href="assets/certs/aws-cloud-practitioner.jpg" target="_blank" rel="noopener">
                 <img src="assets/certs/aws-cloud-practitioner.webp" width="300" height="300" loading="lazy" alt="AWS Certified Cloud Practitioner badge">
                 <span>Cloud Practitioner</span><small>AWS · Foundational</small>
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a class="cert cert-badge" href="assets/certs/framer-expert.png" target="_blank" rel="noopener">
+              </a></div>
+            <div class="cert-slide"><a class="cert cert-badge" href="assets/certs/framer-expert.png" target="_blank" rel="noopener">
                 <img src="assets/certs/framer-expert.webp" width="300" height="156" loading="lazy" alt="Verified Framer Expert badge">
                 <span>Verified Expert</span><small>Framer</small>
-              </a>
-            </div>
+              </a></div>
           </div>
         </div>
       </section>
@@ -581,7 +573,7 @@
           <div class="book-embed">
             <div id="cal-inline" class="cal-inline" aria-label="Booking calendar"></div>
             <div class="cal-fallback">
-              <div class="cal-fallback-icon" aria-hidden="true">📅</div>
+              <div class="cal-fallback-icon" aria-hidden="true"><span class="ph-icon" style="--icon:url(https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/duotone/calendar-dots-duotone.svg)" aria-hidden="true"></span></div>
               <h3>Booking calendar coming soon</h3>
               <p>In the meantime, send me an email and we'll find a time that works.</p>
               <a class="btn btn-primary" href="mailto:matijabog45@gmail.com?subject=Let's%20book%20a%20call">Email me to book</a>
