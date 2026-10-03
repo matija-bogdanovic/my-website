@@ -1668,3 +1668,14 @@ body { background: var(--bg); }
 .section-alt { background: color-mix(in srgb, var(--bg-alt) 72%, transparent); }
 .marquee { background: color-mix(in srgb, var(--bg-alt) 80%, transparent); }
 .site-footer { background: transparent; }
+
+/* One solid page colour everywhere; the dot fade blends into it consistently */
+html, body { background: var(--bg); }
+.hero, .section, .section-alt, .marquee, .site-footer, .certs-section { background: transparent; }
+.marquee { border-block-color: var(--line); }
+
+/* solid colour on the root only, so it sits beneath the dot layers */
+html { background: var(--bg); }
+body { background: transparent; }
+
+.bg-dots-wave { --dot-c: color-mix(in srgb, var(--accent) 32%, transparent); }
