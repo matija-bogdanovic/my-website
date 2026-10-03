@@ -1669,10 +1669,3 @@ html { background: var(--bg); }
 .section-white img.mono { filter: none; }
 .section-white .btn-primary, .section-white .cefr li.current { color: #ffffff; }
 .section-white .cert-arrows button:hover { color: #ffffff; }
-
-/* White hero: photo card uses its light lilac backdrop in both themes */
-.hero.section-white { --stage-a: #c9cdfb; --stage-b: #e6dcfd; --stage-c: #fbeef5; }
-
-/* White navbar (light colour set in both themes, slightly see-through with blur) */
-.site-header.section-white { background: rgba(255, 255, 255, .9) !important; }
-.section-white nav a.nav-cta { color: #ffffff; }
