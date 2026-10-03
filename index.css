@@ -1622,3 +1622,49 @@ picture { display: contents; }
   -webkit-mask-image: radial-gradient(ellipse 75% 70% at 60% 45%, #000 35%, transparent 85%);
   mask-image: radial-gradient(ellipse 75% 70% at 60% 45%, #000 35%, transparent 85%);
 }
+
+/* =====================================================================
+   Site-wide dot texture (pure CSS layers, GPU-cheap)
+   ~4px gap between dots, fading from the bottom of the screen upwards
+   ===================================================================== */
+:root { --dot-tile: 6px; --dot-r: 1px; }
+.bg-dots, .bg-dots-wave, .bg-dots-spot {
+  position: fixed; inset: 0; pointer-events: none; z-index: -1;
+  background-image: radial-gradient(circle at center, var(--dot-c) var(--dot-r), transparent calc(var(--dot-r) + .6px));
+  background-size: var(--dot-tile) var(--dot-tile);
+}
+/* 1) base texture, strongest at the bottom */
+.bg-dots {
+  --dot-c: color-mix(in srgb, var(--text) 16%, transparent);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,.45) 40%, transparent 90%);
+  mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,.45) 40%, transparent 90%);
+}
+/* 2) a band of brighter accent dots sweeping slowly upwards */
+.bg-dots-wave {
+  --dot-c: color-mix(in srgb, var(--accent) 55%, transparent);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 50%, transparent 100%);
+  mask-image: linear-gradient(to top, transparent 0%, #000 50%, transparent 100%);
+  -webkit-mask-size: 100% 45%; mask-size: 100% 45%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  animation: dot-wave 9s linear infinite;
+}
+@keyframes dot-wave {
+  from { -webkit-mask-position: 0 160%; mask-position: 0 160%; }
+  to   { -webkit-mask-position: 0 -60%; mask-position: 0 -60%; }
+}
+/* 3) cursor spotlight */
+.bg-dots-spot {
+  --dot-c: color-mix(in srgb, var(--accent) 85%, transparent);
+  --dot-r: 1.25px;
+  -webkit-mask-image: radial-gradient(circle 150px at var(--mx, -999px) var(--my, -999px), #000 0%, transparent 100%);
+  mask-image: radial-gradient(circle 150px at var(--mx, -999px) var(--my, -999px), #000 0%, transparent 100%);
+}
+@media (prefers-reduced-motion: reduce) { .bg-dots-wave { animation: none; display: none; } }
+@media print { .bg-dots, .bg-dots-wave, .bg-dots-spot { display: none; } }
+
+/* let the dots show through the sections */
+body { background: var(--bg); }
+.hero { background: transparent; }
+.section-alt { background: color-mix(in srgb, var(--bg-alt) 72%, transparent); }
+.marquee { background: color-mix(in srgb, var(--bg-alt) 80%, transparent); }
+.site-footer { background: transparent; }
